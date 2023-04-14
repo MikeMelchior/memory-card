@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import Card from './Card';
 
 
-
-export default function Test() {
+export default function Game() {
 
   const [dogs, setDogs] = useState({});
 
@@ -13,21 +13,9 @@ export default function Test() {
       .catch(error => console.error(error));
   }, []);
 
-  const getDogsArray = () => {
-    let array = [];
-    for (let dog in dogs) {
-      array.push(dog)
-    }
-    console.log(array)
-    return array
-  }
-
- 
   return (
     <div>
-      {getDogsArray().map(dog => {
-        return <div>{dog}</div>
-      })}
+      <Card dogs={dogs} />
     </div>
   )
 }
