@@ -1,6 +1,12 @@
+@font-face {
+  font-family: quicksand;
+  src: url(./Quicksand-VariableFont_wght.ttf);
+}
+
 * {
   margin: 0;
   box-sizing: border-box;
+  font-family: quicksand;
 }
 
 body, 
@@ -10,7 +16,7 @@ html {
 }
 
 #root {
-  background-color: #fcdfe4;
+  background-color: #a0fff6;
   min-height: 100%;
 }
 
@@ -18,20 +24,30 @@ html {
 header {
   height: 90px;
   width: 100%;
-  padding: 0 0 0 15px;
-  background-color: #fcdfe4;
+  background-color: #a0fff6;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
+  header p {
+    font-size: 50px;
+    font-weight: bold;
+  }
 
 #logo {
-  height: 75%;
+  height: 75px;
+  position: absolute;
+  right: 5px;
 }
 
 .loading {
+  position: absolute;
+  height: 70%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 40px;
-  width: fit-content;
-  margin: auto;
 }
 
 .info,
@@ -39,16 +55,15 @@ header {
   width: 100%;
   text-align: center;
   font-size: 25px;
-  padding: 2rem 0 0 0;
+  padding: 1rem 0 0 0;
   font-weight: bold;
   background-color: aliceblue;
 }
 
 .score {
   font-size: 20px;
-  font-weight: 100;
+  font-weight: 400;
   padding: 10px;
-
 }
 
 .game {
