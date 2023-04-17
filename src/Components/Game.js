@@ -1,22 +1,40 @@
 import React, { useEffect, useState } from 'react'
 import Card from './Card';
-
+import uniqid from 'uniqid'
 
 export default function Game() {
-
-  const [dogs, setDogs] = useState({});
-
+  const [load, setLoad] = useState(true);
+  const [dogArray, setDogArray] = useState([]);
+  const [level, setLevel] = useState(1)
+  
   useEffect(() => {
-    fetch(`https://dog.ceo/api/breeds/list/all`)
+    let length;
+    if (level === 1) {
+      length = 4
+    } else if ( level === 2) {
+      length = 5
+    } else length = level * 2
+
+    setLoad(true);
+    fetch(`https://dog.ceo/api/breeds/image/random/${length}`)
       .then(response => response.json())
-      .then(data => setDogs(data.message))
-      .catch(error => console.error(error));
-  }, []);
+      .then(data => {
+        setDogArray(data.message);
+        setLoad(false)
+      })
+  }, [level])
+
 
   return (
-    <div>
-      <Card dogs={dogs} />
-    </div>
+    <>
+      {load 
+        ? <div>Loading . . . </div> 
+        : <div>
+            {dogArray.map(d => {
+              return <Card key={uniqid()} dog={d}/>
+            })}
+          </div>}
+    </>
+    
   )
 }
-
