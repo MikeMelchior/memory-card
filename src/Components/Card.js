@@ -1,6 +1,6 @@
 import React from "react"
 
-export default function Card({ card, shuffle, setLoss, setScore, setLevel }) {
+export default function Card({ card, shuffle, setLoss, setScore, setError }) {
   
   const handleClick = () => {
     if(card.clicked === true) {
@@ -21,9 +21,8 @@ export default function Card({ card, shuffle, setLoss, setScore, setLevel }) {
         // error handle if image doesn't load
         // change level to re trigger render
         // with new batch of images
+        setError()
         console.log('error handled')
-        setLevel(currLevel => currLevel + 1);
-        setLevel(currLevel => currLevel - 1);
       }} />
     </div>
     

@@ -126,7 +126,7 @@ export default function Game() {
                           shuffle={shuffleDoggos}
                           setLoss={setLoss}
                           setScore={setScore}
-                          
+                          setError={setError}
                         />)
               })}
             </div>
