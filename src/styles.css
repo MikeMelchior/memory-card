@@ -28,16 +28,15 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 10px;
 }
   header p {
-    font-size: 50px;
+    font-size: 30px;
     font-weight: bold;
   }
 
 #logo {
-  height: 75px;
-  position: absolute;
-  right: 5px;
+  height: 55px;
 }
 
 .loading {
@@ -69,6 +68,7 @@ header {
 .game {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 25px;
   width: fit-content;
   margin: auto;
