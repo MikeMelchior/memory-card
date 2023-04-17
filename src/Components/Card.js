@@ -1,9 +1,8 @@
 import React from "react"
 
-export default function Card({ url, shuffle, card, setLoss, setScore }) {
+export default function Card({ card, shuffle, setLoss, setScore, setLevel }) {
   
   const handleClick = () => {
-    console.log(card.clicked)
     if(card.clicked === true) {
       setLoss(true)
       return;
@@ -18,7 +17,14 @@ export default function Card({ url, shuffle, card, setLoss, setScore }) {
       shuffle();
       
     }}>    
-      <img src={url} alt="dog" />
+      <img src={card.url} alt="dog" onError={() => {
+        // error handle if image doesn't load
+        // change level to re trigger render
+        // with new batch of images
+        console.log('error handled')
+        setLevel(currLevel => currLevel + 1);
+        setLevel(currLevel => currLevel - 1);
+      }} />
     </div>
     
   )
