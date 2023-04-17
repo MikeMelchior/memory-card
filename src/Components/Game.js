@@ -15,6 +15,7 @@ export default function Game() {
   const [highScore, setHighScore] = useState(0);
   const [cards, setCards] = useState([]);
   const [loss, setLoss] = useState(false);
+  const [error, setError] = useState(false);
 
     // new Game setup
   useEffect(() => {
@@ -33,18 +34,23 @@ export default function Game() {
       setLevelLength(5)
     } else setLevelLength(level * 2)
 
+
+    setError(false)
+    
     fetch(`https://dog.ceo/api/breeds/image/random/${levelLength}`)
       .then(response => response.json())
       .then(data => {
         setUrlArray(data.message)
       })
 
-    setTimeout(() => {
-      setLoad(false)
-      setNewGame(false)
-    }, 1000)
+    
 
-  }, [levelLength, level])
+    setTimeout(() => {
+      setNewGame(false)
+      setLoad(false)
+    }, 1500)
+
+  }, [levelLength, level, error])
 
     // set up memory cards
   useEffect(() => {
@@ -92,7 +98,6 @@ export default function Game() {
       setLoad(true)
     } 
   }, [cards, newGame])
-
   
 
   return (
@@ -118,10 +123,10 @@ export default function Game() {
                 return (<Card 
                           card={card}
                           key={card.id} 
-                          url={card.url} 
                           shuffle={shuffleDoggos}
                           setLoss={setLoss}
                           setScore={setScore}
+                          
                         />)
               })}
             </div>
