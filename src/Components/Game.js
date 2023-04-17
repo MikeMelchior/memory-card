@@ -3,80 +3,113 @@ import Card from './Card';
 import uniqid from 'uniqid'
 
 export default function Game() {
-    // page is loading? 
+  const [newGame, setNewGame] = useState(true)
   const [load, setLoad] = useState(true);
-
-    // initial dog pictures array
-  const [dogArray, setDogArray] = useState([]);
-
-    // set intitial level to 1
+  const [urlArray, setUrlArray] = useState([]);
   const [level, setLevel] = useState(1)
-
     // level length used to determine how many pictures
     // to display based on level
   const [levelLength, setLevelLength] = useState(4);
+  const [cards, setCards] = useState([])
+  const [loss, setLoss] = useState(false)
 
-    // use array of game card objects to control game
-  const [levelArray, setLevelArray] = useState([])
+    // new Game setup
+  useEffect(() => {
+    setLevel(1)
+    setLoss(false)
+    setLoad(true)
+    setNewGame(true)
+  }, [loss])
 
-    // manually set levels one and two
-  const determineLevelLength = () => {
+    // create array of dog picture urls based on level
+  useEffect(() => {
     if (level === 1) {
       setLevelLength(4)
     } else if ( level === 2) {
       setLevelLength(5)
     } else setLevelLength(level * 2)
-  }
-  
-    // create array of dog pictures based on level
-  useEffect(() => {
+
+    fetch(`https://dog.ceo/api/breeds/image/random/${levelLength}`)
+      .then(response => response.json())
+      .then(data => {
+        setUrlArray(data.message)
+      })
+
     setTimeout(() => {
-      setLoad(true);
-      fetch(`https://dog.ceo/api/breeds/image/random/${levelLength}`)
-        .then(response => response.json())
-        .then(data => {
-          setDogArray(data.message);
-          setLoad(false)
-        })
+      setLoad(false)
+      setNewGame(false)
     }, 1000)
-    
-  }, [levelLength])
+
+  }, [levelLength, level])
+
+    // set up memory cards
+  useEffect(() => {
+    setCards([])
+    urlArray.forEach(url => {
+      let dog = {url: url, id: uniqid(), clicked:false}
+      setCards(prev => [...prev, dog])
+    })
+  }, [urlArray])
 
 
     // shuffle pictures on click
   const shuffleDoggos = () => {
-    let tempArray = dogArray;
-    let length = tempArray.length;
+    let tempArray = cards;
+    let length = cards.length;
     let shuffled = []
     for (let i = 0; i < length; i++) {
       let dog = tempArray.splice(Math.floor(Math.random() * tempArray.length), 1)
-      shuffled.push(dog)
+      shuffled.push(...dog)
     }
-    setDogArray(shuffled);
+    setCards(shuffled);
   }
 
-  const checkLevelStatus = () => {
+  useEffect(() => {
+    if(loss) {
+      alert('you clicked the same picture twice')
+    }
+  }, [loss])
 
-  }
+  
+  useEffect(() => {
+    const win = () => {
+      for (let card in cards) {
+        if (cards[card].clicked === false) return false 
+      }
+      return true
+    }
+    if (win() && !newGame) {
+      setLevel(prevLevel => prevLevel + 1)
+      setLoad(true)
+    } 
+  }, [cards, newGame])
 
   
 
   return (
     <>
       {load 
-        ? <div className='loading'>Loading . . . Level {level}</div> 
+        ? <>
+            {newGame 
+              ? <div className='loading'>Loading Level {level} . . .</div> 
+              : <div className='loading'>Nice! Loading Level {level} . . .</div>}
+            
+          </>
+         
         : <>
             <p className='info'>Get points by clicking on a doggo, 
                 but don't click the same one twice!
             </p>
-            <div onLoad={determineLevelLength} className='game'>
-              {dogArray.map(d => {
+            <div onLoad={null} className='game'>
+              {cards.map(card => {
                 return (<Card 
-                          key={uniqid()} 
-                          dog={d} 
+                          card={card}
+                          key={card.id} 
+                          url={card.url} 
                           shuffle={shuffleDoggos}
+                          setLoss={setLoss}
                         />)
-              } )}
+              })}
             </div>
           </>
       }
