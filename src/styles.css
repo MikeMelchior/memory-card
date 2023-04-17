@@ -9,11 +9,17 @@ html {
   width: 100%;
 }
 
+#root {
+  background-color: #fcdfe4;
+  min-height: 100%;
+}
+
+
 header {
   height: 90px;
   width: 100%;
   padding: 0 0 0 15px;
-  background-color: pink;
+  background-color: #fcdfe4;
   display: flex;
   align-items: center;
 }
@@ -28,12 +34,21 @@ header {
   margin: auto;
 }
 
-.info {
+.info,
+.score {
   width: 100%;
   text-align: center;
   font-size: 25px;
   padding: 2rem 0 0 0;
   font-weight: bold;
+  background-color: aliceblue;
+}
+
+.score {
+  font-size: 20px;
+  font-weight: 100;
+  padding: 10px;
+
 }
 
 .game {
@@ -49,3 +64,4 @@ header {
   height: 300px;
   width: 300px;
 }
+
