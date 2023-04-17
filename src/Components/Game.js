@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import Card from './Card';
 import uniqid from 'uniqid'
+import ScoreBoard from './ScoreBoard';
 
 export default function Game() {
-  const [newGame, setNewGame] = useState(true)
+  const [newGame, setNewGame] = useState(true);
   const [load, setLoad] = useState(true);
   const [urlArray, setUrlArray] = useState([]);
-  const [level, setLevel] = useState(1)
+  const [level, setLevel] = useState(1);
     // level length used to determine how many pictures
     // to display based on level
   const [levelLength, setLevelLength] = useState(4);
-  const [cards, setCards] = useState([])
-  const [loss, setLoss] = useState(false)
+  const [score, setScore] = useState(0);
+  const [highScore, setHighScore] = useState(0);
+  const [cards, setCards] = useState([]);
+  const [loss, setLoss] = useState(false);
 
     // new Game setup
   useEffect(() => {
@@ -19,6 +22,7 @@ export default function Game() {
     setLoss(false)
     setLoad(true)
     setNewGame(true)
+    setScore(0)
   }, [loss])
 
     // create array of dog picture urls based on level
@@ -51,6 +55,10 @@ export default function Game() {
     })
   }, [urlArray])
 
+  useEffect(() => {
+    if (score > highScore) setHighScore(score)
+  }, [score, highScore])
+
 
     // shuffle pictures on click
   const shuffleDoggos = () => {
@@ -62,6 +70,7 @@ export default function Game() {
       shuffled.push(...dog)
     }
     setCards(shuffled);
+    
   }
 
   useEffect(() => {
@@ -100,6 +109,10 @@ export default function Game() {
             <p className='info'>Get points by clicking on a doggo, 
                 but don't click the same one twice!
             </p>
+            <ScoreBoard 
+              score={score}
+              highScore={highScore}
+            />
             <div onLoad={null} className='game'>
               {cards.map(card => {
                 return (<Card 
@@ -108,6 +121,7 @@ export default function Game() {
                           url={card.url} 
                           shuffle={shuffleDoggos}
                           setLoss={setLoss}
+                          setScore={setScore}
                         />)
               })}
             </div>
