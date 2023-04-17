@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/rubberteeth.github.io/memory-card/static/css/main.1193dfe0.css",
+    "main.js": "/rubberteeth.github.io/memory-card/static/js/main.6772171c.js",
+    "static/media/Quicksand-VariableFont_wght.ttf": "/rubberteeth.github.io/memory-card/static/media/Quicksand-VariableFont_wght.cf52df73d8529b4815ed.ttf",
+    "static/media/paw.png": "/rubberteeth.github.io/memory-card/static/media/paw.023c92f927fe9ffa1482.png",
+    "index.html": "/rubberteeth.github.io/memory-card/index.html",
+    "main.1193dfe0.css.map": "/rubberteeth.github.io/memory-card/static/css/main.1193dfe0.css.map",
+    "main.6772171c.js.map": "/rubberteeth.github.io/memory-card/static/js/main.6772171c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1193dfe0.css",
+    "static/js/main.6772171c.js"
+  ]
+}
