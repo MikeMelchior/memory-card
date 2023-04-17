@@ -1,27 +1,23 @@
-import { setSelectionRange } from '@testing-library/user-event/dist/utils'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from "react"
 
-export default function Card({ dogs }) {
-
-  const [dogArray, setDogArray] = useState([])
+export default function Card({ url, shuffle, card, setLoss }) {
   
-  useEffect(() => {
-    const getDogsArray = () => {
-      let array = [];
-      for (let dog in dogs) {
-        array.push(dog)
-      }
-      return array
+  const handleClick = () => {
+    console.log(card.clicked)
+    if(card.clicked === true) {
+      setLoss(true)
     }
+    card.clicked = true
+  }
 
-    setDogArray(getDogsArray())
-  }, [dogs])
-
-   
-  
-
- 
-  return (
-    <div>Card</div>
+  return ( 
+    <div className='card' onClick={() => {
+      handleClick()
+      shuffle();
+      
+    }}>    
+      <img src={url} alt="dog" />
+    </div>
+    
   )
 }
