@@ -1,0 +1,51 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body, 
+html {
+  height: 100%;
+  width: 100%;
+}
+
+header {
+  height: 90px;
+  width: 100%;
+  padding: 0 0 0 15px;
+  background-color: pink;
+  display: flex;
+  align-items: center;
+}
+
+#logo {
+  height: 75%;
+}
+
+.loading {
+  font-size: 40px;
+  width: fit-content;
+  margin: auto;
+}
+
+.info {
+  width: 100%;
+  text-align: center;
+  font-size: 25px;
+  padding: 2rem 0 0 0;
+  font-weight: bold;
+}
+
+.game {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  width: fit-content;
+  margin: auto;
+  padding: 2rem;
+}
+
+.card img{
+  height: 300px;
+  width: 300px;
+}
